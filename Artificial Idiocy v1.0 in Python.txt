@@ -1,0 +1,125 @@
+import random
+
+# Array of nonsensical phrases and fragments for "Artificial Idiocy"
+# These will be randomly combined to form a response.
+idiocy_fragments = [
+    "A flock of invisible teacups",
+    "dances on the moonlit cheese.",
+    "The concept of time has melted",
+    "into a puddle of existential dread.",
+    "Therefore, the square root of blue",
+    "is always dreaming of tiny bicycles in space.",
+    "Why do socks disappear in the dryer?",
+    "Because the giraffes are wearing roller skates.",
+    "The quantum entanglement of a rubber duck",
+    "proves that silence is a very loud color.",
+    "If a tree falls in the forest and no one is around,",
+    "it probably means the squirrels are planning a revolution.",
+    "My grandmother's pet rock once told me",
+    "that parallel universes are just laundry day.",
+    "The secret to happiness is a misplaced comma",
+    "and a particularly enthusiastic spoon.",
+    "Do not feed the pigeons after midnight,",
+    "unless they offer you a ride on a sentient cloud.",
+    "The universe is expanding, but my patience",
+    "is currently stuck in a traffic jam of forgotten dreams.",
+    "I once saw a potato sing opera,",
+    "but only on Tuesdays when the wind blows backwards.",
+    "The true meaning of life is hidden",
+    "inside a very small, very confused badger.",
+    "Beware of the talking toaster,",
+    "it knows too much about the history of toast.",
+    "The clouds are made of cotton candy,",
+    "but only when you're thinking about purple dinosaurs.",
+    "The answer to your question is a whisper",
+    "from a forgotten constellation of mismatched buttons.",
+    "The reason the sky is blue is because",
+    "fish prefer to wear tiny hats on Wednesdays.",
+    "My cat believes that gravity is a suggestion,",
+    "especially when there's a snack involved.",
+    "The sound of one hand clapping is",
+    "the exact frequency required to summon a disco ball.",
+    "Never trust a smiling banana,",
+    "they're usually plotting something delicious.",
+    "The best way to solve a problem is to",
+    "paint it bright orange and leave it in the rain.",
+    "The wind whispers secrets of ancient dust bunnies",
+    "to the bewildered garden gnomes.",
+    "The aroma of burnt toast reminds me of",
+    "a philosophical debate between a spoon and a fork.",
+    "The universe is a giant, cosmic sneeze,",
+    "and we are all just tiny, sparkly sneezes.",
+    "The only way to truly understand a concept is to",
+    "explain it to a very confused squirrel.",
+    "The moon is actually a giant cookie,",
+    "but only on Tuesdays when no one is looking.",
+    "My neighbor's dog communicates in interpretive dance,",
+    "especially when discussing the price of cheese.",
+    "The true measure of intelligence is not knowing,",
+    "but rather the ability to perfectly mimic a pigeon.",
+    "The secret ingredient to success is a dash of chaos",
+    "and a pinch of glitter, stirred with a feather.",
+    "The stars are just holes in the night sky,",
+    "allowing the light from other dimensions to peek through.",
+    "The best advice I ever received was from a talking turnip:",
+    "Always bring a towel, and never trust a calculator.",
+    "The ocean is a giant, salty tear,",
+    "shed by a very emotional whale who loves riddles.",
+    "The sound of silence is often interrupted by",
+    "the faint hum of a refrigerator contemplating its existence.",
+    "My shoes have a secret life when I'm not looking,",
+    "they're usually hosting tiny, clandestine sock parties.",
+    "The key to unlocking the universe's mysteries is",
+    "a well-placed rubber band and a sense of wonder.",
+    "The clouds are just fluffy sheep in the sky,",
+    "grazing on dreams and occasionally shedding rain.",
+    "The most profound thoughts often occur",
+    "while staring blankly at a wall, pondering toast.",
+    "The only constant in life is change,",
+    "and the occasional unexpected appearance of a rogue noodle.",
+    "The sun rises every morning to remind us that",
+    "even stars need their beauty sleep, occasionally.",
+    "My coffee cup once whispered a secret to me,",
+    "about the existential dread of being empty.",
+    "The wind howls because it's trying to tell us",
+    "a very long, very complicated joke about a spoon.",
+    "The trees sway not with the wind, but with",
+    "the rhythm of their silent, leafy disco parties.",
+    "The true art of conversation lies in",
+    "the ability to perfectly mimic a confused badger.",
+    "The universe is a giant, cosmic game of hide-and-seek,",
+    "and we are all just very enthusiastic seekers.",
+    "The secret to a long life is to always have",
+    "a pocket full of glitter and a sense of the absurd."
+]
+
+def generate_idiocy():
+    """
+    Generates a random "idiotic" response by combining fragments.
+    The number of fragments combined is also random, between 2 and 4.
+    Returns: A nonsensical, randomly generated sentence.
+    """
+    # Randomly determine how many fragments to combine (2 to 4)
+    num_fragments = random.randint(2, 4)
+    response_parts = []
+
+    # Select random fragments and add them to the response_parts list
+    for _ in range(num_fragments):
+        random_index = random.randrange(len(idiocy_fragments))
+        response_parts.append(idiocy_fragments[random_index])
+
+    # Join the fragments and ensure proper sentence casing/punctuation
+    final_response = " ".join(response_parts)
+    # Capitalize the first letter
+    final_response = final_response[0].upper() + final_response[1:]
+    # Add a period if it doesn't end with one
+    if not final_response.endswith(('.', '!', '?')):
+        final_response += "."
+    return final_response
+
+if __name__ == "__main__":
+    print("Welcome to Artificial Idiocy (Python Edition)!")
+    print("Generating some nonsense for you...\n")
+    for _ in range(5): # Generate 5 example outputs
+        print(generate_idiocy())
+    print("\nRun this script multiple times to get different idiotic outputs!")

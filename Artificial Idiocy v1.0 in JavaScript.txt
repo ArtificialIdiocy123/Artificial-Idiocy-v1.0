@@ -1,0 +1,245 @@
+import React, { useState, useEffect, useRef } from 'react';
+
+// Main App component for Artificial Idiocy
+const App = () => {
+  // State for the question input field
+  const [question, setQuestion] = useState('');
+  // State for the generated idiotic output
+  const [idiocyOutput, setIdiocyOutput] = useState("Your random answer will appear here...");
+  // State for controlling the visibility of the message box
+  const [showMessageBox, setShowMessageBox] = useState(false);
+  // State for the message box content
+  const [messageBoxText, setMessageBoxText] = useState('');
+
+  // Ref for the question input element to allow focusing
+  const questionInputRef = useRef(null);
+
+  // Array of nonsensical phrases and fragments for "Artificial Idiocy"
+  // These will be randomly combined to form a response.
+  const idiocyFragments = [
+    "A flock of invisible teacups",
+    "dances on the moonlit cheese.",
+    "The concept of time has melted",
+    "into a puddle of existential dread.",
+    "Therefore, the square root of blue",
+    "is always dreaming of tiny bicycles in space.",
+    "Why do socks disappear in the dryer?",
+    "Because the giraffes are wearing roller skates.",
+    "The quantum entanglement of a rubber duck",
+    "proves that silence is a very loud color.",
+    "If a tree falls in the forest and no one is around,",
+    "it probably means the squirrels are planning a revolution.",
+    "My grandmother's pet rock once told me",
+    "that parallel universes are just laundry day.",
+    "The secret to happiness is a misplaced comma",
+    "and a particularly enthusiastic spoon.",
+    "Do not feed the pigeons after midnight,",
+    "unless they offer you a ride on a sentient cloud.",
+    "The universe is expanding, but my patience",
+    "is currently stuck in a traffic jam of forgotten dreams.",
+    "I once saw a potato sing opera,",
+    "but only on Tuesdays when the wind blows backwards.",
+    "The true meaning of life is hidden",
+    "inside a very small, very confused badger.",
+    "Beware of the talking toaster,",
+    "it knows too much about the history of toast.",
+    "The clouds are made of cotton candy,",
+    "but only when you're thinking about purple dinosaurs.",
+    "The answer to your question is a whisper",
+    "from a forgotten constellation of mismatched buttons.",
+    "The reason the sky is blue is because",
+    "fish prefer to wear tiny hats on Wednesdays.",
+    "My cat believes that gravity is a suggestion,",
+    "especially when there's a snack involved.",
+    "The sound of one hand clapping is",
+    "the exact frequency required to summon a disco ball.",
+    "Never trust a smiling banana,",
+    "they're usually plotting something delicious.",
+    "The best way to solve a problem is to",
+    "paint it bright orange and leave it in the rain.",
+    "The wind whispers secrets of ancient dust bunnies",
+    "to the bewildered garden gnomes.",
+    "The aroma of burnt toast reminds me of",
+    "a philosophical debate between a spoon and a fork.",
+    "The universe is a giant, cosmic sneeze,",
+    "and we are all just tiny, sparkly sneezes.",
+    "The only way to truly understand a concept is to",
+    "explain it to a very confused squirrel.",
+    "The moon is actually a giant cookie,",
+    "but only on Tuesdays when no one is looking.",
+    "My neighbor's dog communicates in interpretive dance,",
+    "especially when discussing the price of cheese.",
+    "The true measure of intelligence is not knowing,",
+    "but rather the ability to perfectly mimic a pigeon.",
+    "The secret ingredient to success is a dash of chaos",
+    "and a pinch of glitter, stirred with a feather.",
+    "The stars are just holes in the night sky,",
+    "allowing the light from other dimensions to peek through.",
+    "The best advice I ever received was from a talking turnip:",
+    "Always bring a towel, and never trust a calculator.",
+    "The ocean is a giant, salty tear,",
+    "shed by a very emotional whale who loves riddles.",
+    "The sound of silence is often interrupted by",
+    "the faint hum of a refrigerator contemplating its existence.",
+    "My shoes have a secret life when I'm not looking,",
+    "they're usually hosting tiny, clandestine sock parties.",
+    "The key to unlocking the universe's mysteries is",
+    "a well-placed rubber band and a sense of wonder.",
+    "The clouds are just fluffy sheep in the sky,",
+    "grazing on dreams and occasionally shedding rain.",
+    "The most profound thoughts often occur",
+    "while staring blankly at a wall, pondering toast.",
+    "The only constant in life is change,",
+    "and the occasional unexpected appearance of a rogue noodle.",
+    "The sun rises every morning to remind us that",
+    "even stars need their beauty sleep, occasionally.",
+    "My coffee cup once whispered a secret to me,",
+    "about the existential dread of being empty.",
+    "The wind howls because it's trying to tell us",
+    "a very long, very complicated joke about a spoon.",
+    "The trees sway not with the wind, but with",
+    "the rhythm of their silent, leafy disco parties.",
+    "The true art of conversation lies in",
+    "the ability to perfectly mimic a confused badger.",
+    "The universe is a giant, cosmic game of hide-and-seek,",
+    "and we are all just very enthusiastic seekers.",
+    "The secret to a long life is to always have",
+    "a pocket full of glitter and a sense of the absurd."
+  ];
+
+  /**
+   * Displays a custom message box.
+   * @param {string} message - The message to display.
+   */
+  const showCustomMessageBox = (message) => {
+    setMessageBoxText(message);
+    setShowMessageBox(true);
+  };
+
+  /**
+   * Closes the custom message box.
+   */
+  const closeMessageBox = () => {
+    setShowMessageBox(false);
+    setMessageBoxText('');
+  };
+
+  /**
+   * Generates a random "idiotic" response by combining fragments.
+   * The number of fragments combined is also random, between 2 and 4.
+   * @returns {string} A nonsensical, randomly generated sentence.
+   */
+  const generateIdiocy = () => {
+    // Randomly determine how many fragments to combine (2 to 4)
+    const numFragments = Math.floor(Math.random() * 3) + 2;
+    let response = [];
+
+    // Select random fragments and add them to the response array
+    for (let i = 0; i < numFragments; i++) {
+      const randomIndex = Math.floor(Math.random() * idiocyFragments.length);
+      response.push(idiocyFragments[randomIndex]);
+    }
+
+    // Join the fragments and ensure proper sentence casing/punctuation
+    let finalResponse = response.join(" ");
+    // Capitalize the first letter
+    finalResponse = finalResponse.charAt(0).toUpperCase() + finalResponse.slice(1);
+    // Add a period if it doesn't end with one
+    if (!/[.!?]$/.test(finalResponse)) {
+      finalResponse += ".";
+    }
+    return finalResponse;
+  };
+
+  /**
+   * Handles the click event for the "Generate Idiocy" button.
+   * Validates input and generates a new idiotic response.
+   */
+  const handleAskButtonClick = () => {
+    if (question.trim() === "") {
+      showCustomMessageBox("Please type a question first, even if it's just nonsense!");
+      return;
+    }
+    const idiocy = generateIdiocy();
+    setIdiocyOutput(idiocy);
+    setQuestion(""); // Clear the input field after generating
+  };
+
+  /**
+   * Handles key presses in the input field, specifically for the 'Enter' key.
+   */
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleAskButtonClick();
+    }
+  };
+
+  // Effect to set initial message on component mount
+  useEffect(() => {
+    setIdiocyOutput("What do you want to know?");
+  }, []);
+
+  return (
+    <div className="min-h-screen flex items-center justify-center p-4 bg-gray-100 font-inter">
+      {/* Main application container */}
+      <div className="container bg-white p-6 rounded-lg shadow-xl border border-gray-200 flex flex-col items-center max-w-lg w-full">
+        {/* Application Title */}
+        <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">
+          Artificial Idiocy <span className="text-sm text-gray-500">v1.0</span>
+        </h1>
+        {/* Description */}
+        <p className="text-gray-600 mb-6 text-center">
+          Try to make sense of it. Good luck.
+        </p>
+
+        {/* Question Input Section */}
+        <div className="w-full max-w-md mb-6">
+          <label htmlFor="questionInput" className="block text-gray-700 text-sm font-medium mb-2">
+            Your Question:
+          </label>
+          <input
+            type="text"
+            id="questionInput"
+            ref={questionInputRef} // Attach ref to input for potential focusing
+            placeholder="e.g., 'What is the meaning of life?'"
+            value={question}
+            onChange={(e) => setQuestion(e.target.value)} // Update state on input change
+            onKeyPress={handleKeyPress} // Handle Enter key press
+            maxLength={128} // Set the character limit to 128
+            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
+          />
+        </div>
+
+        {/* Generate Idiocy Button */}
+        <button
+          onClick={handleAskButtonClick} // Attach click handler
+          className="w-full max-w-xs bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
+        >
+          Send
+        </button>
+
+        {/* Idiocy Output Display Area */}
+        <div className="mt-8 w-full max-w-md bg-gray-50 p-5 rounded-lg border border-gray-200 min-h-[100px] flex items-center justify-center text-center">
+          <p id="idiocyOutput" className="text-gray-800 text-lg italic">
+            {idiocyOutput}
+          </p>
+        </div>
+      </div>
+
+      {/* Custom Message Box Overlay */}
+      <div className={`fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 transition-opacity duration-300 ${showMessageBox ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+        <div className="bg-white p-6 rounded-xl shadow-2xl text-center max-w-sm w-full">
+          <p className="text-gray-800 text-lg mb-4">{messageBoxText}</p>
+          <button
+            onClick={closeMessageBox} // Attach close handler
+            className="mt-4 py-2 px-6 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            OK
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default App;
