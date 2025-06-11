@@ -118,7 +118,7 @@ def generate_idiocy():
     return final_response
 
 if __name__ == "__main__":
-    print("Welcome to Artificial Idiocy (Python Edition)!")
+    print("Welcome to Artificial Idiocy!")
     print("Generating some nonsense for you...\n")
     for _ in range(5): # Generate 5 example outputs
         print(generate_idiocy())
